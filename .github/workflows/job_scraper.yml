@@ -1,0 +1,48 @@
+name: Daily AI Job Hunter
+
+on:
+  schedule:
+    # Runs every day at 12:00 PM UTC (which is 8:00 AM EDT)
+    - cron: '0 12 * * *'
+  workflow_dispatch: # Allows you to click a "Run Now" button manually
+
+# Grant permissions to save the CSV back to the repository
+permissions:
+  contents: write
+
+jobs:
+  scrape-and-analyze:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Download your code from the repo
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      # Step 2: Install Python 3.12
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      # Step 3: Install your libraries
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pandas python-jobspy google-genai
+
+      # Step 4: Run the pipeline
+      - name: Run Job Scraper & AI Analyst
+        env:
+          # Pulls the API key from your GitHub Secrets safely
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }} 
+        run: python main.py
+
+      # Step 5: Save the updated CSV back to GitHub
+      - name: Commit and Push Updated CSV
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add master_job_matches.csv
+          # If there are no changes, do nothing. If there are, commit and push.
+          git diff --quiet && git diff --staged --quiet || (git commit -m "🤖 Auto-update: New jobs analyzed" && git push)
