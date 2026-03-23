@@ -12,7 +12,7 @@ load_dotenv()
 
 # --- CONFIGURATION ---
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
-OUTPUT_FILE = "master_job_matches.csv"
+OUTPUT_FILE = "main_job_matches.csv"
 
 # The Profile used for both the ML Pre-Filter and the Gemini AI
 RESUME_SUMMARY = """
@@ -56,23 +56,24 @@ def analyze_job(title, company, description):
     Job Description: {description[:2500]} 
     
     CRITICAL RULES:
-    1. The candidate DOES NOT speak French. If the description is in French, or requires bilingual French/English, return SCORE: 0%.
-    2. If the role has nothing to do with data, software, or analytics, return SCORE: 0%.
+    1. The candidate DOES NOT speak French. If the description is in French, or requires bilingual French/English, return SCORE: 0% and CATEGORY: Language.
+    2. If the role has nothing to do with data, software, or analytics, return SCORE: 0% and CATEGORY: Not Relevant.
     
     Evaluate the fit. Provide the output strictly in this format:
     SCORE: [0-100]%
-    REASON: [1 concise sentence on why their specific skills fit this role]
-    COVER LETTER: [Draft a 2-sentence highly tailored opening for a cold email]
+    REASON: [1 concise sentence on why they fit, or exactly why they were rejected]
+    CATEGORY: [Match | Skill Gap | Experience Gap | Clearance/Language | Not Relevant]
+    MISSING_SKILLS: [Comma-separated list of technical skills required that the candidate lacks (e.g., Databricks, Scala, Kafka). If none, write 'None']
+    COVER LETTER: [Draft a 2-sentence highly tailored opening for a cold email. If SCORE is 0%, write 'N/A']
     """
     try:
-        # Using Gemini 2.5 Flash (Strict 20/day limit)
         response = client.models.generate_content(
             model='gemini-2.5-flash',
             contents=prompt,
         )
         return response.text.strip()
     except Exception as e:
-        return f"SCORE: 0%\nREASON: Analysis failed: {e}\nCOVER LETTER: N/A"
+        return f"SCORE: 0%\nREASON: Analysis failed: {e}\nCATEGORY: Error\nMISSING_SKILLS: None\nCOVER LETTER: N/A"
 
 def run_pipeline():
     df_new = fetch_jobs()
@@ -102,66 +103,78 @@ def run_pipeline():
     print(f"🧠 Loading ML Model and Vectorizing {len(df_new)} jobs...")
     
     # 3. Machine Learning Semantic Pre-Filter
-    # Load the lightweight NLP model (downloads automatically on first run)
     ml_model = SentenceTransformer('all-MiniLM-L6-v2')
-    
-    # Embed the candidate's resume
     resume_embedding = ml_model.encode(RESUME_SUMMARY, convert_to_tensor=True)
-    
-    # Combine title and description for context, fill empty fields
     job_texts = (df_new['title'].fillna('') + " " + df_new['description'].fillna('')).tolist()
-    
-    # Embed all jobs at once (Batch Processing)
     job_embeddings = ml_model.encode(job_texts, convert_to_tensor=True)
-    
-    # Calculate Cosine Similarity between Resume and all Jobs
     cosine_scores = util.cos_sim(resume_embedding, job_embeddings)[0].tolist()
     
-    # Add ML scores to the dataframe and sort
     df_new['ml_similarity_score'] = cosine_scores
     df_new = df_new.sort_values(by='ml_similarity_score', ascending=False)
     
-    # 4. Strict Safety Funnel (Top 15 ONLY to protect Gemini 2.5 Quota)
+    # 4. Strict Safety Funnel
     df_to_analyze = df_new.head(15).copy()
     print(f"⏳ Sending the Top {len(df_to_analyze)} most semantically relevant jobs to Gemini 2.5...")
     
-    valid_jobs = []
+    # We will now keep ALL analyzed jobs, categorized into matches and skipped
+    matched_jobs = []
+    skipped_jobs = []
     
     for _, row in df_to_analyze.iterrows():
         desc = str(row.get('description', 'No description provided'))
         result = analyze_job(row['title'], row['company'], desc)
         
+        # Regex to extract the new fields
         score_match = re.search(r'SCORE:\s*(\d+)', result)
+        category_match = re.search(r'CATEGORY:\s*(.*)', result)
+        skills_match = re.search(r'MISSING_SKILLS:\s*(.*)', result)
+        
         score = int(score_match.group(1)) if score_match else 0
+        category = category_match.group(1).strip() if category_match else "Unknown"
+        missing_skills = skills_match.group(1).strip() if skills_match else "None"
+        
+        row_copy = row.copy()
+        row_copy['ai_analysis'] = result
+        row_copy['numeric_score'] = score
+        row_copy['rejection_category'] = category
+        row_copy['missing_skills'] = missing_skills
         
         if score > 0:
             print(f"🎯 AI Final Match ({score}%): {row['title']} at {row['company']}")
-            row_copy = row.copy()
-            row_copy['ai_analysis'] = result
-            row_copy['numeric_score'] = score
-            valid_jobs.append(row_copy)
+            matched_jobs.append(row_copy)
         else:
-            print(f"⏭️ AI Skipped (0%): {row['title']} at {row['company']}")
+            print(f"⏭️ AI Skipped ({category} - Missing: {missing_skills}): {row['title']} at {row['company']}")
+            skipped_jobs.append(row_copy)
             
-        time.sleep(2) # Respect API limits
+        time.sleep(2)
 
-    if not valid_jobs:
-        print("🤷‍♂️ None of the pre-filtered jobs passed the final Gemini check.")
+    # 5. Advanced Sorting
+    # Sort the matches by how much the AI liked them (highest AI score first)
+    df_matches = pd.DataFrame(matched_jobs)
+    if not df_matches.empty:
+        df_matches = df_matches.sort_values(by='numeric_score', ascending=False)
+        
+    # Sort the skips by how much the ML model liked them (highest ML score first)
+    df_skipped = pd.DataFrame(skipped_jobs)
+    if not df_skipped.empty:
+        df_skipped = df_skipped.sort_values(by='ml_similarity_score', ascending=False)
+
+    # Combine them: Matches on top, Skips on the bottom
+    df_final = pd.concat([df_matches, df_skipped], ignore_index=True)
+    
+    if df_final.empty:
+        print("🤷‍♂️ Something went wrong. No data to save.")
         return
 
-    # 5. Final Sort by Gemini Score
-    df_valid = pd.DataFrame(valid_jobs)
-    df_valid = df_valid.sort_values(by='numeric_score', ascending=False)
-    
-    columns_to_keep = ['site', 'title', 'company', 'location', 'job_type', 'job_url', 'date_posted', 'ml_similarity_score', 'ai_analysis']
-    df_clean = df_valid[columns_to_keep]
+    columns_to_keep = ['site', 'title', 'company', 'location', 'job_type', 'job_url', 'date_posted', 'ml_similarity_score', 'numeric_score', 'rejection_category', 'missing_skills', 'ai_analysis']
+    df_clean = df_final[columns_to_keep]
     
     if os.path.exists(OUTPUT_FILE):
         df_clean.to_csv(OUTPUT_FILE, mode='a', header=False, index=False)
     else:
         df_clean.to_csv(OUTPUT_FILE, index=False)
         
-    print(f"\n🎉 Success! Appended {len(df_clean)} highly relevant, AI-sorted jobs to '{OUTPUT_FILE}'.")
+    print(f"\n🎉 Success! Appended {len(df_matches)} matches and {len(df_skipped)} skipped jobs with reasoning to '{OUTPUT_FILE}'.")
 
 if __name__ == "__main__":
     run_pipeline()
