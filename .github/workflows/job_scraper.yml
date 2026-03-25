@@ -31,6 +31,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install pandas python-jobspy google-genai python-dotenv sentence-transformers
 
+      # Step 3.5: Create the GCP Credentials File securely
+      - name: Create GCP Credentials File
+        run: echo '${{ secrets.GCP_CREDENTIALS_JSON }}' > credentials.json
+
       # Step 4: Run the pipeline
       - name: Run Job Scraper & AI Analyst
         env:
