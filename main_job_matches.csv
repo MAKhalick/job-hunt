@@ -74,3 +74,230 @@ REASON: Analysis failed: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'messag
 CATEGORY: Error
 MISSING_SKILLS: None
 COVER LETTER: N/A"
+linkedin,Junior Data Analyst,Helic & Co.,,fulltime,https://www.linkedin.com/jobs/view/4389211418,,0.5960400700569153,95,Match,None,"SCORE: 95%
+REASON: Mohammed is an exceptionally strong candidate, possessing a relevant Master's degree, extensive SQL, Power BI, and Tableau expertise, and prior data engineering experience that directly aligns with the job's core requirements.
+CATEGORY: Match
+MISSING_SKILLS: None
+COVER LETTER: Your search for a motivated Junior Data Analyst aligns perfectly with Mohammed Adnan Khalick's strong background in Applied Data Science and hands-on experience with SQL, Power BI, and Tableau. His comprehensive skill set and eagerness to contribute make him an ideal fit for your remote position at Helic & Co."
+indeed,"Scientific Data Analyst, DDI",Red Deer Polytechnic,"Red Deer, AB, CA",fulltime,https://ca.indeed.com/viewjob?jk=1b75f4b968e5cde3,2026-03-17,0.5793341398239136,95,Match,None,"SCORE: 95%
+REASON: The candidate possesses strong data engineering, backend development, and analytics skills, coupled with an Applied Data Science Master's degree highly relevant to the role's data analysis, pipeline, and AI support requirements.
+CATEGORY: Match
+MISSING_SKILLS: None
+COVER LETTER: I am writing to express my keen interest in the Scientific Data Analyst role at Red Deer Polytechnic, where my Masters in Applied Data Science directly aligns with your focus on complex data analysis and AI-driven workflows. My practical experience in Python, SQL, and data pipeline development perfectly complements your need for a hands-on software development professional."
+linkedin,Backend Engineer (Python) | Remote,Crossing Hurdles,,contract,https://www.linkedin.com/jobs/view/4388905167,,0.5690226554870605,90,Match,None,"SCORE: 90%
+REASON: The candidate possesses strong Python backend development skills including Docker, Git, API, and database integration, aligning perfectly with the role's focus on evaluating PyCharm workflows and Python best practices.
+CATEGORY: Match
+MISSING_SKILLS: None
+COVER LETTER: Mohammed Adnan Khalick brings a robust background in Python backend development, including Docker and API integration, which directly aligns with your need for a PyCharm-focused Software Engineer to evaluate advanced workflows. My experience as a Senior Software Engineer and a Data Engineer Intern, combined with my Applied Data Science Masters, has equipped me with a strong understanding of Python best practices and environment management essential for this unique role."
+linkedin,Data Analyst,Insight Global,"Toronto, Ontario, Canada",contract,https://www.linkedin.com/jobs/view/4387954415,,0.5573768019676208,90,Match,Microsoft Fabric,"SCORE: 90%
+REASON: Mohammed's strong proficiency in SQL, Python, ETL pipelines, and data modeling, coupled with his Master's in Applied Data Science and Data Engineer Intern experience, makes him an excellent candidate for this technical Data Analyst role.
+CATEGORY: Match
+MISSING_SKILLS: Microsoft Fabric
+COVER LETTER: Your search for a Data Analyst with robust SQL, Python, and data quality expertise perfectly aligns with Mohammed Adnan Khalick's profile, including his Master's in Applied Data Science and hands-on data engineering experience. He is particularly keen to apply his skills in data validation, normalization, and advanced analytics within your dynamic team."
+indeed,Sr. Technical Business Analyst (Client Analytics),Scotiabank,"Toronto, ON, CA",,https://ca.indeed.com/viewjob?jk=7fcfb930800d1c59,2026-03-21,0.4995184540748596,85,Match,None,"SCORE: 85%
+REASON: Candidate's strong technical skills in data analysis, ETL, SQL, and BI tools align exceptionally well with the core responsibilities of a Sr. Technical Business Analyst in client analytics.
+CATEGORY: Match
+MISSING_SKILLS: None
+COVER LETTER: I am writing to express my keen interest in the Sr. Technical Business Analyst (Client Analytics) position at Scotiabank, where my expertise in data analysis, ETL pipeline development, and BI tools such as Power BI directly aligns with your team's focus on modernizing analytic platforms and enhancing client profitability insights. My experience as a Data Engineer Intern and a Master's in Applied Data Science uniquely positions me to contribute to your challenging big data and analytics projects."
+linkedin,Senior Big Data Engineer & Database Administrator,StackAdapt,,fulltime,https://www.linkedin.com/jobs/view/4369820344,2026-03-21,0.4680796265602112,68,Skill Gap,"Spark, Java, Coalesce, Informatica, DataStage, Talend, Data Quality tools, Metadata Manager","SCORE: 68%
+REASON: The candidate possesses strong foundational data engineering skills including Snowflake, Python, and ETL, but lacks specific big data technologies like Spark/Java and extensive experience with enterprise ETL platforms required for this senior role.
+CATEGORY: Skill Gap
+MISSING_SKILLS: Spark, Java, Coalesce, Informatica, DataStage, Talend, Data Quality tools, Metadata Manager
+COVER LETTER: Dear [Hiring Manager Name], I am writing to express my keen interest in the Senior Big Data Engineer & Database Administrator position at StackAdapt, having closely followed your innovative work in programmatic advertising. My strong background in data engineering, including Python, SQL, ETL pipeline development, and direct experience with Snowflake and GCP, aligns well with your team's needs."
+indeed,Senior Data Engineer/Developer – Canada (Remote),Info-Tech Research Group,"London, ON, CA",,https://ca.indeed.com/viewjob?jk=193725bddd1d5037,2026-03-23,0.5949887037277222,40,Skill Gap,"MS-Fabric, Azure, Ruby on Rails, JS","SCORE: 40%
+REASON: The candidate possesses strong data engineering fundamentals, Power BI, Python, and SQL, aligning with many aspects of the role, but lacks the mandatory MS-Fabric experience required for a Senior Data Engineer.
+CATEGORY: Skill Gap
+MISSING_SKILLS: MS-Fabric, Azure, Ruby on Rails, JS
+COVER LETTER: Dear [Hiring Manager Name], I am writing to express my enthusiastic interest in the Senior Data Engineer/Developer position at Info-Tech Research Group. My strong background in Python, SQL, ETL pipeline development, and Power BI aligns well with your team's needs, particularly your emphasis on data visualization and insights."
+linkedin,Python Developer /Data Engineer,BULLIT SYSTEMS,"Toronto, Ontario, Canada",fulltime,https://www.linkedin.com/jobs/view/4388949947,,0.5783774852752686,35,Experience Gap,None,"SCORE: 35%
+REASON: The candidate possesses strong technical skills in Python, ETL, and cloud platforms aligning with the role's needs, but significantly lacks the required 6-8 years of total experience, minimum 5 years of hands-on Python development, and background in the banking sector.
+CATEGORY: Experience Gap
+MISSING_SKILLS: None
+COVER LETTER: My Master's in Applied Data Science from uOttawa, coupled with hands-on experience in Python, ETL pipelines, and cloud platforms like GCP, aligns well with the technical challenges of your Python Developer / Data Engineer role. I am particularly excited by opportunities to apply my data processing and feature engineering skills within a robust banking environment."
+linkedin,Intermediate Software/Power Platform Developer,BA - Tech Consulting Inc,"Ottawa, Ontario, Canada",temporary,https://www.linkedin.com/jobs/view/4389206565,,0.5687279105186462,35,Experience Gap,"DAX, M (Power Query), Power Platform (Model-Driven Apps, Canvas Apps, Dataverse, Cloud Flows), Azure Services (Logic Apps, Functions), Microsoft Graph API, Azure governance, RBAC, Azure DevOps","SCORE: 35%
+REASON: Candidate has strong foundational software and data skills including Power BI, but significantly lacks the required 8 years of overall experience and 6 years specifically in Azure/Power Platform development.
+CATEGORY: Experience Gap
+MISSING_SKILLS: DAX, M (Power Query), Power Platform (Model-Driven Apps, Canvas Apps, Dataverse, Cloud Flows), Azure Services (Logic Apps, Functions), Microsoft Graph API, Azure governance, RBAC, Azure DevOps
+COVER LETTER: While my recent experience has focused on Data Engineering with Python and cloud platforms like GCP/AWS, I am keenly interested in leveraging my strong Power BI skills, data modeling expertise, and enterprise software development background to contribute to your Intermediate Software/Power Platform Developer role at BA-Tech Consulting Inc. I am particularly drawn to this opportunity given its alignment with the public sector and my aptitude for rapidly mastering new enterprise technologies."
+linkedin,Senior Data Engineer (Remote),Lumenalta,"Waterloo, Ontario, Canada",contract,https://www.linkedin.com/jobs/view/4389079405,,0.6862704157829285,25,Experience Gap,None,"SCORE: 25%
+REASON: The candidate possesses strong technical skills in Python, SQL, ETL, and cloud platforms, including experience with Apache Airflow, but significantly lacks the required 7+ years of dedicated Data Engineer experience for a senior role.
+CATEGORY: Experience Gap
+MISSING_SKILLS: None
+COVER LETTER: With a Master's in Applied Data Science and hands-on experience building robust ETL pipelines using Python, SQL, and Apache Airflow, I am very interested in the Data Engineer opportunities at Lumenalta. My technical background strongly aligns with your requirements for designing and maintaining scalable data solutions, and I am eager to contribute to your impactful projects."
+linkedin,Data Reporting Analyst,Dexian,"Toronto, Ontario, Canada",contract,https://www.linkedin.com/jobs/view/4387723379,,0.5433287620544434,25,Skill Gap,"MS Access (Forms/VBA automation), SharePoint lists","SCORE: 25%
+REASON: The candidate possesses strong Python and general data analysis skills but lacks the critical ""MUST-HAVE"" experience with MS Access (Forms/VBA automation) and SharePoint lists, which are central to the role's responsibilities.
+CATEGORY: Skill Gap
+MISSING_SKILLS: MS Access (Forms/VBA automation), SharePoint lists
+COVER LETTER: I am writing to express my strong interest in the Data Reporting Analyst position at Dexian, bringing a solid foundation in data analysis, Python scripting, and database management from my Master's in Applied Data Science and diverse industry experience. My expertise in consolidating data, coupled with a rapid learning ability, makes me confident in quickly mastering MS Access and SharePoint to excel in your team."
+linkedin,Senior Data Engineer - Databricks,Lumenalta,,fulltime,https://www.linkedin.com/jobs/view/4389069792,,0.5168170928955078,25,Skill Gap,"Databricks, PySpark, Delta Lake, Unity Catalog, Databricks Asset Bundles, Lakeflow Jobs, Terraform, PyTest","SCORE: 25%
+REASON: The candidate possesses strong foundational Python, SQL, and general data engineering skills but critically lacks the deep expertise in Databricks and its associated ecosystem components required for this senior-level, specialized role.
+CATEGORY: Skill Gap
+MISSING_SKILLS: Databricks, PySpark, Delta Lake, Unity Catalog, Databricks Asset Bundles, Lakeflow Jobs, Terraform, PyTest
+COVER LETTER: As a highly motivated Master of Digital Transformation student specializing in Applied Data Science, I was intrigued by the Senior Data Engineer - Databricks role at Lumenalta, given my strong background in Python, SQL, ETL pipelines, and AWS. My 3 years as a Senior Software Engineer, combined with recent data engineering internship experience, has equipped me with robust software development and data modeling skills, which I am eager to apply and expand, particularly into specialized areas like Databricks."
+linkedin,Business System Analyst,Quantiphi,,contract,https://www.linkedin.com/jobs/view/4386691609,,0.500234067440033,20,Experience Gap,"Guidewire systems, insurance domain expertise, 10+ years BigQuery data warehousing experience","SCORE: 20%
+REASON: The candidate's 3.25 years of professional experience falls significantly short of the required 10+ years for this senior Business System Analyst role.
+CATEGORY: Experience Gap
+MISSING_SKILLS: Guidewire systems, insurance domain expertise, 10+ years BigQuery data warehousing experience
+COVER LETTER: My Master's in Applied Data Science and experience with Python, SQL, GCP, and Data Modeling align with the core technical foundations Quantiphi seeks for data-centric roles. I am particularly drawn to Quantiphi's leadership in Applied AI and Big Data and your award-winning culture, and would be eager to explore how my skills could contribute to your team."
+linkedin,Lead Data Engineer - Databricks (Remote),Lumenalta,,fulltime,https://www.linkedin.com/jobs/view/4389065989,,0.5049184560775757,10,Experience Gap,"Databricks, PySpark, Lead Data Engineering experience, Enterprise Data Architecture","SCORE: 10%
+REASON: The candidate lacks the required 10+ years of experience in a Lead Data Engineer role and specific expertise in Databricks and PySpark for this senior position.
+CATEGORY: Experience Gap
+MISSING_SKILLS: Databricks, PySpark, Lead Data Engineering experience, Enterprise Data Architecture
+COVER LETTER: N/A"
+linkedin,Senior Data Architect,2iSolutions Inc.,"Alberta, Canada",contract,https://www.linkedin.com/jobs/view/4388950521,,0.4638158977031708,10,Experience Gap,"Microsoft Dataverse, Microsoft Dynamics 365, Enterprise Data Architecture (senior level)","SCORE: 10%
+REASON: The candidate lacks the critical 7 years of senior data architecture experience and specific expertise in Microsoft Dataverse and Dynamics 365 platforms required for this role.
+CATEGORY: Experience Gap
+MISSING_SKILLS: Microsoft Dataverse, Microsoft Dynamics 365, Enterprise Data Architecture (senior level)
+COVER LETTER: Dear [Hiring Manager Name], I am writing to present Mohammed Adnan Khalick, whose background in applied data science, Power BI, and data modeling aligns with aspects of your Senior Data Architect role. His recent data engineering experience and proficiency with ETL tools like Apache Airflow could contribute to your data orchestration needs."
+linkedin,Software Engineer,Scotiabank,"Toronto, Ontario, Canada",fulltime,https://www.linkedin.com/jobs/view/4379139215,,0.5924496054649353,75,Skill Gap,"SSIS, Power Apps, Power Automate, SharePoint, SSRS","SCORE: 75%
+REASON: Candidate possesses strong Python, SQL (T-SQL), ETL, Cloud (GCP), and Power BI skills aligning with core data engineering and reporting tasks, but lacks explicit experience with SSIS, Power Apps, Power Automate, and SharePoint.
+CATEGORY: Skill Gap
+MISSING_SKILLS: SSIS, Power Apps, Power Automate, SharePoint, SSRS
+COVER LETTER: Dear [Hiring Manager Name], I am writing to express my enthusiastic interest in the Software Engineer position at Scotiabank, bringing a strong foundation in Python, T-SQL, ETL pipelines, and Power BI that aligns perfectly with your Global Compliance Technology team's focus on data and reporting solutions. My experience with GCP and REST APIs, combined with my Master's in Applied Data Science, makes me a compelling candidate to contribute to your cutting-edge data initiatives."
+linkedin,Software Engineer - Data Engineer,BenchSci,"Toronto, Ontario, Canada",fulltime,https://www.linkedin.com/jobs/view/4379246521,2026-03-23,0.5612643361091614,75,Match,"LLM Integration, LLM Evaluation Frameworks","SCORE: 75%
+REASON: The candidate presents a strong foundation in core data engineering, software development, Python, SQL, cloud, and pipeline skills, aligning well with the engineering aspects of the role, though explicit experience with LLM integration and evaluation frameworks is not listed.
+CATEGORY: Match
+MISSING_SKILLS: LLM Integration, LLM Evaluation Frameworks
+COVER LETTER: Dear Hiring Manager, I am writing to express my strong interest in the Software Engineer - Data Engineer role at BenchSci, as your mission to apply data engineering to scientific discovery deeply resonates with my passion for leveraging data for impactful innovation. My background, including a Master's in Applied Data Science, 3 years as a Software Engineer, and practical experience with Python, SQL, and building robust data pipelines, uniquely positions me to contribute to scaling your data platform and evolving data models."
+indeed,Senior Backend Engineer (SQL/Python),Releady,"Remote, CA",fulltime,https://ca.indeed.com/viewjob?jk=e72cd07d4e519820,2026-03-23,0.5964218378067017,65,Experience Gap,"Kubernetes, OAuth2, JWT, RBAC","SCORE: 65%
+REASON: The candidate possesses strong technical skills in Python, SQL, ETL, and API development with relevant cloud and containerization experience, but lacks the 5+ years required for a Senior Backend Engineer role.
+CATEGORY: Experience Gap
+MISSING_SKILLS: Kubernetes, OAuth2, JWT, RBAC
+COVER LETTER: Dear [Hiring Manager Name], I am writing to express my enthusiastic interest in the Senior Backend Engineer (SQL/Python) position at Releady, bringing a strong foundation in Python, SQL, ETL pipeline development, and RESTful APIs with cloud-native experience. My background as a Software Engineer at Capgemini and Cognizant, combined with recent experience in Django, PostgreSQL, Docker, and GCP, aligns directly with your requirements for building scalable data-driven backend systems."
+linkedin,AWS AI/ML Engineer with Data,Iris Software Inc.,"Toronto, Ontario, Canada",contract,https://www.linkedin.com/jobs/view/4379679428,,0.5611458420753479,60,Skill Gap,"AWS Sagemaker, MLOps","SCORE: 60%
+REASON: The candidate possesses strong data engineering skills, AWS experience, and an Applied Data Science Master's, but lacks explicit hands-on experience with AWS Sagemaker and MLOps crucial for a Senior AI/ML Engineer role.
+CATEGORY: Skill Gap
+MISSING_SKILLS: AWS Sagemaker, MLOps
+COVER LETTER: My robust background in Data Engineering, coupled with a Master's in Applied Data Science and experience with AWS and Python, aligns well with the data-centric and cloud requirements of your AWS AI/ML Engineer role. I am particularly eager to leverage my skills in a dynamic environment focused on advanced machine learning solutions and quickly adapt to new tools like Sagemaker."
+linkedin,Data Engineer,Scotiabank,"Toronto, Ontario, Canada",fulltime,https://www.linkedin.com/jobs/view/4378887269,,0.6375762820243835,55,Experience Gap,"Apache Spark, PySpark, Apache Beam, Flink, Talend (or similar ETL tools), Jenkins, Cloud Build, Terraform","SCORE: 55%
+REASON: The candidate possesses strong foundational skills in Python, SQL, and Airflow, but significantly lacks the 5+ years of required experience in Data Engineering and hands-on experience with Apache Spark/PySpark or similar large-scale data processing frameworks.
+CATEGORY: Experience Gap
+MISSING_SKILLS: Apache Spark, PySpark, Apache Beam, Flink, Talend (or similar ETL tools), Jenkins, Cloud Build, Terraform
+COVER LETTER: Dear Hiring Team, I am writing to express my keen interest in the Data Engineer position at Scotiabank, having tracked opportunities that leverage advanced data capabilities. My strong academic background in Applied Data Science, coupled with a recent Data Engineer internship and professional experience in software, has equipped me with a solid foundation in Python, SQL, and Apache Airflow that I believe aligns well with your team's needs."
+linkedin,Senior Data Analyst,Mindlance,"Toronto, Ontario, Canada",contract,https://www.linkedin.com/jobs/view/4389253051,,0.6335978507995605,55,Skill Gap,"Financial Services Experience, SSIS, SSRS, Regulatory Reporting","SCORE: 55%
+REASON: The candidate possesses strong core data skills including SQL, Python, ETL, and Airflow, but lacks explicit financial services experience, regulatory reporting knowledge, and hands-on SSIS/SSRS expertise for this Senior Data Analyst role.
+CATEGORY: Skill Gap
+MISSING_SKILLS: Financial Services Experience, SSIS, SSRS, Regulatory Reporting
+COVER LETTER: Dear [Hiring Manager Name], I am writing to express my strong interest in the Senior Data Analyst position at Mindlance, bringing a robust foundation in SQL, Python, and ETL pipeline development from my Master's in Applied Data Science and prior software engineering experience. My hands-on skills with data modeling, Apache Airflow, and BI tools like Power BI align well with your requirements for driving data-driven insights."
+linkedin,Senior Data Engineer,Vancity,"Toronto, Ontario, Canada",fulltime,https://www.linkedin.com/jobs/view/4388984827,,0.5335401296615601,55,Experience Gap,"Spark, Databricks, Kafka, R, EventHub","SCORE: 55%
+REASON: The candidate has strong foundational data engineering skills but lacks the required 5+ years of senior experience and specific big data technologies like Spark, Databricks, and Kafka.
+CATEGORY: Experience Gap
+MISSING_SKILLS: Spark, Databricks, Kafka, R, EventHub
+COVER LETTER: Dear [Hiring Manager Name], As a final-semester Master's student in Applied Data Science with strong foundational skills in Python, SQL, ETL pipelines, and cloud platforms like GCP, I am very interested in the Senior Data Engineer role at Vancity. My recent Data Engineer internship at Vosyn and prior experience as a Senior Software Engineer demonstrate my capacity to contribute to complex data projects and align with your need for robust data pipeline development."
+indeed,"Senior Snowflake Data Engineer, AVP",State Street,"Toronto, ON, CA",fulltime,https://ca.indeed.com/viewjob?jk=5ddc1906d14b9b5d,2026-03-23,0.6558851003646851,35,Experience Gap,"DBT, Azure (services, DevOps troubleshooting), Cosmos DB, Advanced Snowflake features (resource monitors, RBAC, query tuning), Microservices architecture","SCORE: 35%
+REASON: The candidate lacks the 7+ years of IT experience required for this senior AVP role and is missing key skills such as DBT, Azure services, and Cosmos DB.
+CATEGORY: Experience Gap
+MISSING_SKILLS: DBT, Azure (services, DevOps troubleshooting), Cosmos DB, Advanced Snowflake features (resource monitors, RBAC, query tuning), Microservices architecture
+COVER LETTER: Dear [Hiring Manager Name],
+
+I am writing to express my strong interest in the Senior Snowflake Data Engineer, AVP position at State Street. My Master's in Applied Data Science, coupled with hands-on experience in Snowflake, Apache Airflow, and building data pipelines with Python and SQL, aligns with your focus on cloud-based DW solutions and data integration."
+linkedin,Senior Data Engineer,Quantum World Technologies Inc.,"Toronto, Ontario, Canada",contract,https://www.linkedin.com/jobs/view/4388997180,,0.5396925210952759,35,Skill Gap,"Google BigQuery, Cortex Framework, SAP S4HANAECC, SAP SuccessFactors integration","SCORE: 35%
+REASON: The candidate lacks the required 7 years of senior data engineering experience and specific expertise in Google BigQuery, the Cortex Framework, and SAP system integration.
+CATEGORY: Skill Gap
+MISSING_SKILLS: Google BigQuery, Cortex Framework, SAP S4HANAECC, SAP SuccessFactors integration
+COVER LETTER: I am writing to express my keen interest in the Senior Data Engineer position at Quantum World Technologies Inc., drawn by the opportunity to design scalable, cloud-native analytics solutions on GCP. My background in applied data science and hands-on experience with GCP, SQL, and ETL pipeline development makes me a strong candidate for contributions to your data initiatives."
+linkedin,Data Engineer,Apexon,"Toronto, Ontario, Canada",fulltime,https://www.linkedin.com/jobs/view/4389586710,,0.6385170221328735,25,Experience Gap,"Kafka, Superset, AWS Lambda, AWS Redshift, AWS DMS, Kubernetes","SCORE: 25%
+REASON: The candidate possesses many relevant technical skills but significantly lacks the 6+ years of direct data engineering/database administration experience required for this senior role.
+CATEGORY: Experience Gap
+MISSING_SKILLS: Kafka, Superset, AWS Lambda, AWS Redshift, AWS DMS, Kubernetes
+COVER LETTER: Dear Apexon Hiring Team, I am writing to express my strong interest in the Data Engineer position, bringing foundational skills in Python, SQL, ETL, and Apache Airflow, along with practical experience from my recent data engineering internship and prior software engineering roles. My master's degree in Applied Data Science has further honed my abilities in data modeling and database optimization, which I am eager to apply and grow within your team."
+linkedin,Business Systems Analyst (R/Python),Capgemini,"Toronto, Ontario, Canada",internship,https://www.linkedin.com/jobs/view/4389286152,,0.5660442113876343,25,Experience Gap,"R, Java, Oracle SQL","SCORE: 25%
+REASON: The candidate lacks the mandatory 8+ years of senior business systems analyst experience and proficiency in Java, making them significantly underqualified for this senior role.
+CATEGORY: Experience Gap
+MISSING_SKILLS: R, Java, Oracle SQL
+COVER LETTER: N/A"
+indeed,"Sr. Databricks Data Engineer, Onsite AVP",State Street,"Toronto, ON, CA",fulltime,https://ca.indeed.com/viewjob?jk=195c6059ccdd73f0,2026-03-23,0.6112825870513916,15,Skill Gap,"Databricks, Scala, PySpark, Azure, DevOps pipeline troubleshooting","SCORE: 15%
+REASON: The candidate lacks the critical 3+ years of hands-on Databricks, Scala, and PySpark experience, and significantly falls short of the required 7+ years overall IT and 5+ years Data Engineering experience for this senior role.
+CATEGORY: Skill Gap
+MISSING_SKILLS: Databricks, Scala, PySpark, Azure, DevOps pipeline troubleshooting
+COVER LETTER: I've reviewed your profile and while your foundational skills in Python, SQL, and general data engineering are impressive, this Senior Databricks Data Engineer role requires specific expertise in Databricks, Scala, PySpark, and Azure. We are seeking candidates who possess a direct and extensive background in these specific technologies and the senior-level experience outlined in the job description."
+linkedin,Data Engineer,VySystems,"Toronto, Ontario, Canada",fulltime,https://www.linkedin.com/jobs/view/4389738388,,0.5400225520133972,15,Experience Gap,"Hadoop ecosystem, Hive, Hive Metastore, Dataproc (deep expertise), Dataproc Serverless, BigQuery (deep expertise), Hive to BigQuery migration, Parquet/ORC optimization expertise","SCORE: 15%
+REASON: The candidate lacks the required 6-10+ years of experience and deep expertise in Hadoop, Hive, Dataproc, and BigQuery migration.
+CATEGORY: Experience Gap
+MISSING_SKILLS: Hadoop ecosystem, Hive, Hive Metastore, Dataproc (deep expertise), Dataproc Serverless, BigQuery (deep expertise), Hive to BigQuery migration, Parquet/ORC optimization expertise
+COVER LETTER: Dear [Hiring Manager Name], I'm reaching out regarding your Data Engineer role at VySystems and believe Mohammed Adnan Khalick’s strong foundational data engineering skills, including Python, SQL, ETL pipelines, and recent GCP experience, could be a valuable asset. His academic background in Applied Data Science and hands-on experience demonstrate a rapid learning ability for complex data environments."
+linkedin,Senior Data Architect (GOAPRDJP00000869),Amyantek,,contract,https://www.linkedin.com/jobs/view/4389098840,2026-03-23,0.6035792827606201,5,Experience Gap,"Microsoft Dataverse, Microsoft Dynamics 365, TOGAF, AZ-305 Certification, Enterprise Architecture Principles","SCORE: 5%
+REASON: The candidate's ~3 years of combined professional experience is significantly below the 7 years of specific Senior Data Architect experience required for this role.
+CATEGORY: Experience Gap
+MISSING_SKILLS: Microsoft Dataverse, Microsoft Dynamics 365, TOGAF, AZ-305 Certification, Enterprise Architecture Principles
+COVER LETTER: Mohammed, your Master's in Applied Data Science and experience with Python, SQL, and Power BI caught my eye for a Senior Data Architect role with the Govt of Alberta. While this specific opportunity requires extensive enterprise-level architecture experience, your background suggests strong potential in data modeling and cloud technologies."
+linkedin,Data Engineer - Databricks (Remote),Lumenalta,"Vancouver, British Columbia, Canada",fulltime,https://www.linkedin.com/jobs/view/4389035500,2026-03-23,0.5917795896530151,0,Experience Gap,"Databricks, PySpark","SCORE: 0%
+REASON: The candidate significantly lacks the required 7+ years of experience as a Data Engineer and essential production-level Databricks and PySpark expertise for this senior role.
+CATEGORY: Experience Gap
+MISSING_SKILLS: Databricks, PySpark
+COVER LETTER: N/A"
+indeed,Data Analyst Intern,Javelin Technologies,"Oakville, ON, CA",,https://ca.indeed.com/viewjob?jk=cf7e2a3f711a5da7,2026-03-25,0.5320879817008972,98,Match,None,"SCORE: 98%
+REASON: Mohammed possesses an exceptional blend of relevant education, strong SQL, Python, ETL, and BI tool experience, making him highly overqualified yet perfectly suited for this Data Analyst Intern role.
+CATEGORY: Match
+MISSING_SKILLS: None
+COVER LETTER: As a Master of Digital Transformation (Applied Data Science) student with prior Data Engineer internship experience, I am keenly interested in Javelin Technologies' Data Analyst Intern role. My strong background in SQL, Python for data analysis, ETL pipelines, and BI tools like Power BI directly aligns with your enterprise data transformation initiative."
+linkedin,Data Engineer (Banking/Capital Markets),Covetus,"Mississauga, Ontario, Canada",fulltime,https://www.linkedin.com/jobs/view/4389778259,,0.6401410102844238,65,Skill Gap,"PySpark, OpenShift","SCORE: 65%
+REASON: Mohammed possesses a strong foundation in Python, SQL, Snowflake, and cloud platforms with relevant education and an internship, but lacks specific experience with PySpark and OpenShift which are key requirements for this role.
+CATEGORY: Skill Gap
+MISSING_SKILLS: PySpark, OpenShift
+COVER LETTER: As a Master's candidate in Applied Data Science with strong Python, SQL, and Snowflake expertise, and recent Data Engineer internship experience, I am keen to apply my skills to a dynamic Data Engineer role within the banking sector. My background aligns well with building robust data pipelines and warehousing solutions, and I am particularly eager to contribute to Covetus's initiatives in this space."
+linkedin,AWS Cloud Data Engineer with AI,Iris Software Inc.,"Toronto, Ontario, Canada",contract,https://www.linkedin.com/jobs/view/4379679428,,0.5859529972076416,65,Skill Gap,"AWS Sagemaker, MLOPS","SCORE: 65%
+REASON: Mohammed's strong Data Engineering background, AWS experience, and Master's in Applied Data Science align well, though direct experience with AWS SageMaker and MLOps for a Senior role is not explicitly stated.
+CATEGORY: Skill Gap
+MISSING_SKILLS: AWS Sagemaker, MLOPS
+COVER LETTER: I am writing to express my strong interest in the Sr AWS Cloud Data Engineer with AI position at Iris Software Inc., bringing robust Data Engineering skills and hands-on AWS experience. My Master of Digital Transformation (Applied Data Science) and prior software engineering roles uniquely position me for the analytical and cloud demands of this hybrid role in Toronto."
+linkedin,Senior Data Engineer,Clario,,fulltime,https://www.linkedin.com/jobs/view/4383790663,,0.5559662580490112,55,Experience Gap,"MLOps practices, Data governance/regulatory compliance in clinical environments, Data pipeline monitoring & observability tools","SCORE: 55%
+REASON: The candidate demonstrates strong core data engineering skills and relevant education but significantly lacks the 5+ years of dedicated data engineering experience required for a Senior role.
+CATEGORY: Experience Gap
+MISSING_SKILLS: MLOps practices, Data governance/regulatory compliance in clinical environments, Data pipeline monitoring & observability tools
+COVER LETTER: Dear Clario Hiring Team, With a strong foundation in Python, SQL, AWS, and ETL pipeline development, coupled with an Applied Data Science Master's, I am excited by the opportunity to contribute my data engineering skills to Clario's innovative clinical technology platform. My recent internship and prior software engineering roles have prepared me to design and build scalable data solutions, and I am eager to apply this expertise to your critical initiatives."
+indeed,Data Engineer,Thales,"Ottawa, ON, CA",fulltime,https://ca.indeed.com/viewjob?jk=4945edc2979d0e7b,2026-03-25,0.5270496606826782,45,Experience Gap,"Argo, dbt, Nifi","SCORE: 45%
+REASON: Candidate possesses strong technical skills and relevant education for a Data Engineer, but significantly lacks the 7 years of required experience with data engineering toolsets.
+CATEGORY: Experience Gap
+MISSING_SKILLS: Argo, dbt, Nifi
+COVER LETTER: Given your focus on innovative data solutions for naval platforms, I believe my Master's in Applied Data Science and recent Data Engineer internship align well with Thales's mission. I am particularly excited by the opportunity to contribute my skills in Python, SQL, ETL pipelines, and Apache Airflow to your Ottawa-based Innovation Team."
+linkedin,Senior Data Engineer (12 months contract),Sobeys,"Mississauga, Ontario, Canada",contract,https://www.linkedin.com/jobs/view/4390371050,,0.6765415072441101,25,Skill Gap,"Azure Databricks, Spark, DLT Framework, Structured Streaming, Unity Catalog, Azure DevOps, Test-driven development","SCORE: 25%
+REASON: The candidate lacks the significant (5+ years) and highly specialized experience required in Azure Databricks, Spark, and Azure DevOps that is critical for this Senior Data Engineer role.
+CATEGORY: Skill Gap
+MISSING_SKILLS: Azure Databricks, Spark, DLT Framework, Structured Streaming, Unity Catalog, Azure DevOps, Test-driven development
+COVER LETTER: Your background in Data Engineering, including a Master's in Applied Data Science and experience with Python, SQL, and ETL pipelines, is very impressive. While this Senior Data Engineer role with Sobeys specifically requires significant Azure Databricks experience, your profile suggests strong potential for other data-focused roles."
+linkedin,Sr. Data Engineer,Mastech Digital,,contract,https://www.linkedin.com/jobs/view/4387094588,2026-03-23,0.5270395278930664,25,Experience Gap,"Databricks, Terraform, Spark, CI/CD (GitHub Actions), Delta Lake","SCORE: 25%
+REASON: Candidate lacks the required 5+ years of experience for a Senior role and does not list critical skills such as Databricks, Terraform, Spark, CI/CD, or Delta Lake.
+CATEGORY: Experience Gap
+MISSING_SKILLS: Databricks, Terraform, Spark, CI/CD (GitHub Actions), Delta Lake
+COVER LETTER: Dear [Hiring Manager Name], I am writing to express my interest in the Sr. Data Engineer position at Mastech Digital, drawn by the exciting prospect of contributing to significant Databricks and AWS migration projects, leveraging my background in data engineering, Python, SQL, and Apache Airflow. I am eager to apply my foundational data engineering and cloud skills to complex challenges and further develop my expertise in cutting-edge platforms."
+linkedin,Data Analyst,Dawn InfoTek,"Toronto, Ontario, Canada",contract,https://www.linkedin.com/jobs/view/4389522217,2026-03-24,0.5316295623779297,20,Skill Gap,"Databricks, Microsoft Fabric, 5+ years advanced Power BI development, 5+ years advanced SQL","SCORE: 20%
+REASON: The candidate lacks the mandated 5+ years of experience across all key requirements and critically misses hands-on experience with Microsoft Fabric and Databricks.
+CATEGORY: Skill Gap
+MISSING_SKILLS: Databricks, Microsoft Fabric, 5+ years advanced Power BI development, 5+ years advanced SQL
+COVER LETTER: Your strong foundational skills in SQL, Power BI, and data modeling, complemented by your Masters in Applied Data Science, are a solid base for a Data Analyst role. While the position emphasizes 5+ years of experience with Microsoft Fabric and Databricks, we are interested in your transferable skills and enthusiasm for these cutting-edge technologies."
+linkedin,Senior Data Engineer,TechDoQuest,"Markham, Ontario, Canada",contract,https://www.linkedin.com/jobs/view/4384086890,2026-03-24,0.6831822395324707,15,Experience Gap,"Informatica PowerCenter, extensive AWS S3/Lambda experience","SCORE: 15%
+REASON: The candidate lacks the required 10+ years of professional experience for a Senior Data Engineer role and does not have expertise in Informatica PowerCenter, a critical technical requirement.
+CATEGORY: Experience Gap
+MISSING_SKILLS: Informatica PowerCenter, extensive AWS S3/Lambda experience
+COVER LETTER: Dear [Hiring Manager Name], I'm reaching out about the Senior Data Engineer role at TechDoQuest, noting Mohammed's strong foundation in Snowflake, Python, and SQL, coupled with his recent Master's in Applied Data Science. His experience with AWS and ETL pipelines aligns with aspects of your requirements, and he is keen to apply his skills in a challenging data environment."
+linkedin,Backend Engineer – Java & GCP Data Pipelines,BULLIT SYSTEMS,"Toronto, Ontario, Canada",fulltime,https://www.linkedin.com/jobs/view/4390133783,,0.5691180229187012,15,Skill Gap,"Java, Spring Boot, Maven, Gradle, Apache Beam (Java SDK)","SCORE: 15%
+REASON: The candidate lacks the fundamental Java, Spring Boot, and Apache Beam (Java SDK) expertise required for this backend engineer role focused on GCP data pipelines, alongside a significant experience gap.
+CATEGORY: Skill Gap
+MISSING_SKILLS: Java, Spring Boot, Maven, Gradle, Apache Beam (Java SDK)
+COVER LETTER: Your background in backend engineering and general GCP experience, especially with data pipelines, caught my eye for our Backend Engineer role focusing on Java & GCP Data Pipelines. While the role emphasizes specific Java frameworks and Apache Beam, your foundational experience could offer a unique perspective."
+linkedin,Data Engineer,Akkodis,"Toronto, Ontario, Canada",contract,https://www.linkedin.com/jobs/view/4389827720,,0.7205994725227356,0,Experience Gap,"LangChain/LangGraph, FastAPI, Async programming with Python, Azure Kubernetes, GitHub Actions, Azure APIM, MongoDB/CosmosDB, Databricks, AzureOpenAI, AzureDoc Intelligence","SCORE: 0%
+REASON: The job explicitly states a non-negotiable requirement for prior SunLife experience, which the candidate lacks.
+CATEGORY: Experience Gap
+MISSING_SKILLS: LangChain/LangGraph, FastAPI, Async programming with Python, Azure Kubernetes, GitHub Actions, Azure APIM, MongoDB/CosmosDB, Databricks, AzureOpenAI, AzureDoc Intelligence
+COVER LETTER: N/A"
+linkedin,Data Engineer,Galent,"Toronto, Ontario, Canada",contract,https://www.linkedin.com/jobs/view/4388847592,,0.6809033155441284,0,Error,None,"SCORE: 0%
+REASON: Analysis failed: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}
+CATEGORY: Error
+MISSING_SKILLS: None
+COVER LETTER: N/A"
+linkedin,Data Engineer,IntePros,"Toronto, Ontario, Canada",fulltime,https://www.linkedin.com/jobs/view/4378110525,,0.6704858541488647,0,Clearance/Language,None,"SCORE: 0%
+REASON: The candidate's profile does not confirm Canadian Permanent Resident status, a non-negotiable requirement for this role.
+CATEGORY: Clearance/Language
+MISSING_SKILLS: None
+COVER LETTER: N/A"
+linkedin,Data Analyst intern,Ericsson,"Toronto, Ontario, Canada",fulltime,https://www.linkedin.com/jobs/view/4390145352,,0.5803431868553162,0,Skill Gap,N/A,"SCORE: 0%
+REASON: Candidate is a Master's student, while the eligibility explicitly requires active enrollment in an undergraduate program.
+CATEGORY: Skill Gap
+MISSING_SKILLS: N/A
+COVER LETTER: N/A"
+linkedin,Data Analyst Co-op,Havas CX Canada,"Toronto, Ontario, Canada",internship,https://www.linkedin.com/jobs/view/4390364606,,0.5508019924163818,0,Error,None,"SCORE: 0%
+REASON: Analysis failed: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}
+CATEGORY: Error
+MISSING_SKILLS: None
+COVER LETTER: N/A"
