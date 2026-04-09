@@ -74,14 +74,28 @@ def analyze_job(title, company, description):
     MISSING_SKILLS: [Comma-separated list of technical skills required that the candidate lacks. If none, write 'None']
     COVER LETTER: [Draft a 2-sentence highly tailored opening for a cold email. If SCORE is 0%, write 'N/A']
     """
-    try:
-        response = client.models.generate_content(
-            model='gemini-2.5-flash',
-            contents=prompt,
-        )
-        return response.text.strip()
-    except Exception as e:
-        return f"SCORE: 0%\nREASON: Analysis failed: {e}\nCATEGORY: Error\nMISSING_SKILLS: None\nCOVER LETTER: N/A"
+
+    max_retries = 3
+    
+    for attempt in range(max_retries):
+        try:
+            response = client.models.generate_content(
+                model='gemini-2.5-flash',
+                contents=prompt,
+            )
+            return response.text.strip()
+        except Exception as e:
+            error_msg = str(e)
+        # If it's a 503 (Server Busy) or 500 (Server Error), we wait and retry
+            if '503' in error_msg or '500' in error_msg:
+                if attempt < max_retries - 1:
+                    sleep_time = 5 * (2 ** attempt) # Waits 5s, then 10s...
+                    print(f"⚠️ AI Server busy (503). Retrying in {sleep_time} seconds... (Attempt {attempt + 1}/{max_retries})")
+                    time.sleep(sleep_time)
+                    continue # Jumps back to the top of the loop to try again
+            
+            # If it's a 429 (Daily Quota empty) or we ran out of retries, fail gracefully
+            return f"SCORE: 0%\nREASON: Analysis failed: {e}\nCATEGORY: Error\nMISSING_SKILLS: None\nCOVER LETTER: N/A"
 
 def run_pipeline():
     # 1. Connect to the Cloud Database (Google Sheets)

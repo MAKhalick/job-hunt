@@ -3,7 +3,7 @@ name: Daily AI Job Hunter
 on:
   schedule:
     # Runs every day at 3 PM UTC (which is 11:00 AM EDT)
-    - cron: '0 15 * * *'
+    - cron: '5 15 * * *'
   workflow_dispatch: # Allows you to click a "Run Now" button manually
 
 # Grant permissions to save the CSV back to the repository
