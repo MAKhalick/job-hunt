@@ -132,38 +132,23 @@ def run_pipeline():
         print("✅ No new jobs to analyze right now.")
         return
 
-    # --- THE NEW HUMAN-IN-THE-LOOP COMPANY FILTER ---
     print("🏢 Checking Company Directory...")
     company_records = company_sheet.get_all_records()
     known_companies = pd.DataFrame(company_records) if company_records else pd.DataFrame(columns=['Company Name', 'Status'])
     
     # Clean up names for matching
-    known_companies['name_lower'] = known_companies['Company Name'].astype(str).str.lower().str.strip()
+    if not known_companies.empty:
+        known_companies['name_lower'] = known_companies['Company Name'].astype(str).str.lower().str.strip()
+        spam_companies = set(known_companies[known_companies['Status'].str.lower() == 'spam']['name_lower'])
+        all_known_names = set(known_companies['name_lower'])
+    else:
+        spam_companies = set()
+        all_known_names = set()
     
-    # Build a list of known spam companies
-    spam_companies = set(known_companies[known_companies['Status'].str.lower() == 'spam']['name_lower'])
-    
-    # Filter out the spam
+    # 3. Pre-Filter: Drop the Known Spam
     initial_count = len(df_new)
     df_new = df_new[~df_new['company_lower'].isin(spam_companies)]
     print(f"🛑 Blocked {initial_count - len(df_new)} jobs from your known Spam list.")
-    
-    # Find brand new companies to add to the directory
-    all_known_names = set(known_companies['name_lower'])
-    new_companies_to_add = []
-    
-    # Get unique new company names from the current batch and scrub NaNs
-    unique_new_companies = df_new[['company', 'company_lower']].copy()
-    unique_new_companies = unique_new_companies.fillna("Unknown Company").drop_duplicates()
-    
-    for _, row in unique_new_companies.iterrows():
-        if row['company_lower'] not in all_known_names:
-            new_companies_to_add.append([row['company'], "Pending"])
-            
-    if new_companies_to_add:
-        company_sheet.append_rows(new_companies_to_add)
-        print(f"📝 Added {len(new_companies_to_add)} new companies to the directory as 'Pending'.")
-    # ------------------------------------------------
 
     if df_new.empty:
         print("✅ All new jobs were filtered out as spam.")
@@ -171,7 +156,7 @@ def run_pipeline():
 
     print(f"🧠 Loading ML Model and Vectorizing {len(df_new)} jobs...")
     
-    # 3. Machine Learning Semantic Pre-Filter
+    # 4. Machine Learning Semantic Pre-Filter
     ml_model = SentenceTransformer('all-MiniLM-L6-v2')
     resume_embedding = ml_model.encode(RESUME_SUMMARY, convert_to_tensor=True)
     job_texts = (df_new['title'].fillna('') + " " + df_new['description'].fillna('')).tolist()
@@ -181,9 +166,25 @@ def run_pipeline():
     df_new['ml_similarity_score'] = cosine_scores
     df_new = df_new.sort_values(by='ml_similarity_score', ascending=False)
     
-    # 4. Strict Safety Funnel
+    # 5. Strict Safety Funnel (Top 15 Only)
     df_to_analyze = df_new.head(15).copy()
     df_to_analyze = df_to_analyze.fillna("")
+    
+    # --- THE LEAN COMPANY DIRECTORY UPDATE ---
+    # Find brand new companies ONLY from the Top 15 to add to the directory
+    new_companies_to_add = []
+    unique_new_companies = df_to_analyze[['company', 'company_lower']].copy()
+    unique_new_companies = unique_new_companies.fillna("Unknown Company").drop_duplicates()
+    
+    for _, row in unique_new_companies.iterrows():
+        if row['company_lower'] not in all_known_names:
+            new_companies_to_add.append([row['company'], "Pending"])
+            
+    if new_companies_to_add:
+        company_sheet.append_rows(new_companies_to_add)
+        print(f"📝 Added {len(new_companies_to_add)} new companies from the Top 15 to the directory as 'Pending'.")
+    # -----------------------------------------
+
     print(f"⏳ Sending the Top {len(df_to_analyze)} most semantically relevant jobs to Gemini 2.5...")
     
     rows_to_insert = []
@@ -209,24 +210,15 @@ def run_pipeline():
         date_fetched = datetime.now().strftime("%Y-%m-%d")
 
         new_row = [
-            status, 
-            row.get('site', ''), 
-            row.get('title', ''), 
-            row.get('company', ''), 
-            row.get('location', ''), 
-            row.get('job_type', ''), 
-            row.get('job_url', ''), 
-            date_fetched, 
-            round(cosine_scores[0], 4), 
-            score, 
-            category, 
-            missing_skills, 
-            result
+            status, row.get('site', ''), row.get('title', ''), row.get('company', ''), 
+            row.get('location', ''), row.get('job_type', ''), row.get('job_url', ''), 
+            date_fetched, round(cosine_scores[0], 4), score, 
+            category, missing_skills, result
         ]
         rows_to_insert.append(new_row)
         time.sleep(2)
 
-    # 5. Push to Google Sheets
+    # 6. Push to Google Sheets
     if rows_to_insert:
         rows_to_insert.sort(key=lambda x: x[9], reverse=True) 
         job_sheet.append_rows(rows_to_insert)
