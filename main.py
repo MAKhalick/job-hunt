@@ -152,8 +152,9 @@ def run_pipeline():
     all_known_names = set(known_companies['name_lower'])
     new_companies_to_add = []
     
-    # Get unique new company names from the current batch
-    unique_new_companies = df_new[['company', 'company_lower']].drop_duplicates()
+    # Get unique new company names from the current batch and scrub NaNs
+    unique_new_companies = df_new[['company', 'company_lower']].copy()
+    unique_new_companies = unique_new_companies.fillna("Unknown Company").drop_duplicates()
     
     for _, row in unique_new_companies.iterrows():
         if row['company_lower'] not in all_known_names:
