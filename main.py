@@ -72,13 +72,13 @@ def analyze_job(title, company, description):
     CRITICAL RULES:
     1. The candidate DOES NOT speak French. If the description is in French, or requires bilingual French/English, return SCORE: 0% and CATEGORY: Language.
     2. If the role has nothing to do with data, software, or analytics, return SCORE: 0% and CATEGORY: Not Relevant.
-    3. NO AGENCIES. If the company is a staffing agency, recruiting firm, consulting firm, or states they are hiring on behalf of an unnamed "client", return SCORE: 0% and CATEGORY: Agency.
     
     Evaluate the fit. Provide the output strictly in this format:
     SCORE: [0-100]%
     REASON: [1 concise sentence on why they fit, or exactly why they were rejected]
     CATEGORY: [Match | Skill Gap | Experience Gap | Clearance/Language | Not Relevant | Agency]
     MISSING_SKILLS: [Comma-separated list of technical skills required that the candidate lacks. If none, write 'None']
+    COMPANY_SECTOR: [1-3 words classifying the company's industry (e.g., Banking, Healthcare, IT Consulting). Guess based on context if not explicitly stated.]
     COVER LETTER: [Draft a 2-sentence highly tailored opening for a cold email. If SCORE is 0%, write 'N/A']
     """
 
@@ -134,7 +134,7 @@ def run_pipeline():
 
     print("🏢 Checking Company Directory...")
     company_records = company_sheet.get_all_records()
-    known_companies = pd.DataFrame(company_records) if company_records else pd.DataFrame(columns=['Company Name', 'Status'])
+    known_companies = pd.DataFrame(company_records) if company_records else pd.DataFrame(columns=['Company Name', 'Status', 'Sector'])
     
     # Clean up names for matching
     if not known_companies.empty:
@@ -170,36 +170,34 @@ def run_pipeline():
     df_to_analyze = df_new.head(15).copy()
     df_to_analyze = df_to_analyze.fillna("")
     
-    # --- THE LEAN COMPANY DIRECTORY UPDATE ---
-    # Find brand new companies ONLY from the Top 15 to add to the directory
-    new_companies_to_add = []
-    unique_new_companies = df_to_analyze[['company', 'company_lower']].copy()
-    unique_new_companies = unique_new_companies.fillna("Unknown Company").drop_duplicates()
-    
-    for _, row in unique_new_companies.iterrows():
-        if row['company_lower'] not in all_known_names:
-            new_companies_to_add.append([row['company'], "Pending"])
-            
-    if new_companies_to_add:
-        company_sheet.append_rows(new_companies_to_add)
-        print(f"📝 Added {len(new_companies_to_add)} new companies from the Top 15 to the directory as 'Pending'.")
-    # -----------------------------------------
-
     print(f"⏳ Sending the Top {len(df_to_analyze)} most semantically relevant jobs to Gemini 2.5...")
     
     rows_to_insert = []
+    new_companies_to_add = []
+    processed_new_companies = set() # Prevents adding the same company twice in one batch
     
     for _, row in df_to_analyze.iterrows():
         desc = str(row.get('description', 'No description provided'))
         result = analyze_job(row['title'], row['company'], desc)
         
+        # Regex parsers
         score_match = re.search(r'SCORE:\s*(\d+)', result)
         category_match = re.search(r'CATEGORY:\s*(.*)', result)
         skills_match = re.search(r'MISSING_SKILLS:\s*(.*)', result)
+        sector_match = re.search(r'COMPANY_SECTOR:\s*(.*)', result)
         
         score = int(score_match.group(1)) if score_match else 0
         category = category_match.group(1).strip() if category_match else "Unknown"
         missing_skills = skills_match.group(1).strip() if skills_match else "None"
+        sector = sector_match.group(1).strip() if sector_match else "Unknown"
+        
+        # --- THE LEAN COMPANY DIRECTORY UPDATE (Now with Sector!) ---
+        comp_lower = row['company_lower']
+        if comp_lower not in all_known_names and comp_lower not in processed_new_companies:
+            # We append the 3-column payload: [Name, Status, Sector]
+            new_companies_to_add.append([row['company'], "Pending", sector])
+            processed_new_companies.add(comp_lower)
+        # ------------------------------------------------------------
         
         status = "To Apply" if score > 0 else "Skipped"
         if score > 0:
@@ -219,10 +217,14 @@ def run_pipeline():
         time.sleep(2)
 
     # 6. Push to Google Sheets
+    if new_companies_to_add:
+        company_sheet.append_rows(new_companies_to_add)
+        print(f"📝 Added {len(new_companies_to_add)} new companies to the directory with their Sectors.")
+
     if rows_to_insert:
         rows_to_insert.sort(key=lambda x: x[9], reverse=True) 
         job_sheet.append_rows(rows_to_insert)
-        print(f"\n🎉 Success! Pushed {len(rows_to_insert)} jobs to the Job Tracker.")
+        print(f"🎉 Success! Pushed {len(rows_to_insert)} jobs to the Job Tracker.")
 
 if __name__ == "__main__":
     run_pipeline()
