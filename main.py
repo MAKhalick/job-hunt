@@ -3,6 +3,7 @@ from jobspy import scrape_jobs
 from google import genai
 from sentence_transformers import SentenceTransformer, util
 import time
+from datetime import datetime
 import os
 import re
 from dotenv import load_dotenv
@@ -204,6 +205,8 @@ def run_pipeline():
         else:
             print(f"⏭️ AI Skipped ({category}): {row['title']} at {row['company']}")
 
+        date_fetched = datetime.now().strftime("%Y-%m-%d")
+
         new_row = [
             status, 
             row.get('site', ''), 
@@ -212,7 +215,7 @@ def run_pipeline():
             row.get('location', ''), 
             row.get('job_type', ''), 
             row.get('job_url', ''), 
-            str(row.get('date_posted', '')), 
+            date_fetched, 
             round(cosine_scores[0], 4), 
             score, 
             category, 
