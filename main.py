@@ -31,11 +31,16 @@ Target Work Type: Full-time or Internship. Remote, Hybrid, or In-person across C
 client = genai.Client()
 
 def authenticate_gsheets():
-    """Connects to Google Sheets using the service account credentials."""
+    """Connects to Google Sheets and returns both worksheets."""
     scopes = ["https://www.googleapis.com/auth/spreadsheets", "https://www.googleapis.com/auth/drive"]
     creds = Credentials.from_service_account_file('credentials.json', scopes=scopes)
     gc = gspread.authorize(creds)
-    return gc.open(SHEET_NAME).sheet1
+    spreadsheet = gc.open(SHEET_NAME)
+    
+    # Return both tabs
+    job_sheet = spreadsheet.worksheet("Sheet1") # Or whatever your first tab is named
+    company_sheet = spreadsheet.worksheet("Company Directory")
+    return job_sheet, company_sheet
 
 def fetch_jobs():
     print("🔍 Scraping a wide net across Canada (LinkedIn, Indeed, Glassdoor)...")
@@ -66,11 +71,12 @@ def analyze_job(title, company, description):
     CRITICAL RULES:
     1. The candidate DOES NOT speak French. If the description is in French, or requires bilingual French/English, return SCORE: 0% and CATEGORY: Language.
     2. If the role has nothing to do with data, software, or analytics, return SCORE: 0% and CATEGORY: Not Relevant.
+    3. NO AGENCIES. If the company is a staffing agency, recruiting firm, consulting firm, or states they are hiring on behalf of an unnamed "client", return SCORE: 0% and CATEGORY: Agency.
     
     Evaluate the fit. Provide the output strictly in this format:
     SCORE: [0-100]%
     REASON: [1 concise sentence on why they fit, or exactly why they were rejected]
-    CATEGORY: [Match | Skill Gap | Experience Gap | Clearance/Language | Not Relevant]
+    CATEGORY: [Match | Skill Gap | Experience Gap | Clearance/Language | Not Relevant | Agency]
     MISSING_SKILLS: [Comma-separated list of technical skills required that the candidate lacks. If none, write 'None']
     COVER LETTER: [Draft a 2-sentence highly tailored opening for a cold email. If SCORE is 0%, write 'N/A']
     """
@@ -98,25 +104,23 @@ def analyze_job(title, company, description):
             return f"SCORE: 0%\nREASON: Analysis failed: {e}\nCATEGORY: Error\nMISSING_SKILLS: None\nCOVER LETTER: N/A"
 
 def run_pipeline():
-    # 1. Connect to the Cloud Database (Google Sheets)
     print("☁️ Connecting to Google Sheets...")
-    sheet = authenticate_gsheets()
+    job_sheet, company_sheet = authenticate_gsheets()
     
     df_new = fetch_jobs()
     if df_new.empty:
         print("📭 No jobs fetched.")
         return
 
-    # 2. Cross-Portal Deduplication
+    # 1. Cross-Portal Deduplication
     df_new['title_lower'] = df_new['title'].str.lower()
     df_new['company_lower'] = df_new['company'].str.lower()
     df_new = df_new.drop_duplicates(subset=['title_lower', 'company_lower'])
     
-    # 3. Cloud Database Deduplication
-    # Pull existing records from Google Sheets to ensure we never re-analyze old jobs
-    existing_records = sheet.get_all_records()
-    if existing_records:
-        df_existing = pd.DataFrame(existing_records)
+    # 2. Job History Deduplication (From Tab 1)
+    existing_jobs = job_sheet.get_all_records()
+    if existing_jobs:
+        df_existing = pd.DataFrame(existing_jobs)
         if 'Title' in df_existing.columns and 'Company' in df_existing.columns:
             df_existing['combo'] = df_existing['Title'].astype(str).str.lower() + df_existing['Company'].astype(str).str.lower()
             df_new['combo'] = df_new['title_lower'] + df_new['company_lower']
@@ -124,12 +128,48 @@ def run_pipeline():
             df_new = df_new[~df_new['combo'].isin(known_combos)]
 
     if df_new.empty:
-        print("✅ No new jobs to analyze right now. Try again later!")
+        print("✅ No new jobs to analyze right now.")
+        return
+
+    # --- THE NEW HUMAN-IN-THE-LOOP COMPANY FILTER ---
+    print("🏢 Checking Company Directory...")
+    company_records = company_sheet.get_all_records()
+    known_companies = pd.DataFrame(company_records) if company_records else pd.DataFrame(columns=['Company Name', 'Status'])
+    
+    # Clean up names for matching
+    known_companies['name_lower'] = known_companies['Company Name'].astype(str).str.lower().str.strip()
+    
+    # Build a list of known spam companies
+    spam_companies = set(known_companies[known_companies['Status'].str.lower() == 'spam']['name_lower'])
+    
+    # Filter out the spam
+    initial_count = len(df_new)
+    df_new = df_new[~df_new['company_lower'].isin(spam_companies)]
+    print(f"🛑 Blocked {initial_count - len(df_new)} jobs from your known Spam list.")
+    
+    # Find brand new companies to add to the directory
+    all_known_names = set(known_companies['name_lower'])
+    new_companies_to_add = []
+    
+    # Get unique new company names from the current batch
+    unique_new_companies = df_new[['company', 'company_lower']].drop_duplicates()
+    
+    for _, row in unique_new_companies.iterrows():
+        if row['company_lower'] not in all_known_names:
+            new_companies_to_add.append([row['company'], "Pending"])
+            
+    if new_companies_to_add:
+        company_sheet.append_rows(new_companies_to_add)
+        print(f"📝 Added {len(new_companies_to_add)} new companies to the directory as 'Pending'.")
+    # ------------------------------------------------
+
+    if df_new.empty:
+        print("✅ All new jobs were filtered out as spam.")
         return
 
     print(f"🧠 Loading ML Model and Vectorizing {len(df_new)} jobs...")
     
-    # 4. Machine Learning Semantic Pre-Filter
+    # 3. Machine Learning Semantic Pre-Filter
     ml_model = SentenceTransformer('all-MiniLM-L6-v2')
     resume_embedding = ml_model.encode(RESUME_SUMMARY, convert_to_tensor=True)
     job_texts = (df_new['title'].fillna('') + " " + df_new['description'].fillna('')).tolist()
@@ -139,7 +179,7 @@ def run_pipeline():
     df_new['ml_similarity_score'] = cosine_scores
     df_new = df_new.sort_values(by='ml_similarity_score', ascending=False)
     
-    # 5. Strict Safety Funnel
+    # 4. Strict Safety Funnel
     df_to_analyze = df_new.head(15).copy()
     df_to_analyze = df_to_analyze.fillna("")
     print(f"⏳ Sending the Top {len(df_to_analyze)} most semantically relevant jobs to Gemini 2.5...")
@@ -158,7 +198,6 @@ def run_pipeline():
         category = category_match.group(1).strip() if category_match else "Unknown"
         missing_skills = skills_match.group(1).strip() if skills_match else "None"
         
-        # Prepare the exact row format for Google Sheets based on our headers
         status = "To Apply" if score > 0 else "Skipped"
         if score > 0:
             print(f"🎯 AI Match ({score}%): {row['title']} at {row['company']}")
@@ -166,29 +205,28 @@ def run_pipeline():
             print(f"⏭️ AI Skipped ({category}): {row['title']} at {row['company']}")
 
         new_row = [
-            status,                                # Status
-            row.get('site', ''),                   # Site
-            row.get('title', ''),                  # Title
-            row.get('company', ''),                # Company
-            row.get('location', ''),               # Location
-            row.get('job_type', ''),               # Job Type
-            row.get('job_url', ''),                # URL
-            str(row.get('date_posted', '')),       # Date Posted
-            round(cosine_scores[0], 4),            # ML Score
-            score,                                 # AI Score
-            category,                              # Rejection Category
-            missing_skills,                        # Missing Skills
-            result                                 # AI Analysis
+            status, 
+            row.get('site', ''), 
+            row.get('title', ''), 
+            row.get('company', ''), 
+            row.get('location', ''), 
+            row.get('job_type', ''), 
+            row.get('job_url', ''), 
+            str(row.get('date_posted', '')), 
+            round(cosine_scores[0], 4), 
+            score, 
+            category, 
+            missing_skills, 
+            result
         ]
         rows_to_insert.append(new_row)
         time.sleep(2)
 
-    # 6. Push to Google Sheets
+    # 5. Push to Google Sheets
     if rows_to_insert:
-        # Sort so high AI scores are at the top of the batch
         rows_to_insert.sort(key=lambda x: x[9], reverse=True) 
-        sheet.append_rows(rows_to_insert)
-        print(f"\n🎉 Success! Pushed {len(rows_to_insert)} jobs directly to your Google Sheet.")
+        job_sheet.append_rows(rows_to_insert)
+        print(f"\n🎉 Success! Pushed {len(rows_to_insert)} jobs to the Job Tracker.")
 
 if __name__ == "__main__":
     run_pipeline()
