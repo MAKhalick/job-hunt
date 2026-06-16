@@ -32,8 +32,12 @@ jobs:
       - name: Install Dependencies
         run: |
           python -m pip install --upgrade pip
+          
+          # 1. Force install the lightweight CPU version of PyTorch first
+          pip install torch==2.10.0 --index-url https://download.pytorch.org/whl/cpu
+          
+          # 2. Install all the libraries
           pip install -r requirements.txt
-          pip install pandas python-jobspy google-genai python-dotenv sentence-transformers
 
       # Step 3.5: Create the GCP Credentials File securely
       - name: Create GCP Credentials File
