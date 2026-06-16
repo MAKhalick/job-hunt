@@ -39,12 +39,12 @@ def authenticate_gsheets():
     spreadsheet = gc.open(SHEET_NAME)
     
     # Return both tabs
-    job_sheet = spreadsheet.worksheet("Sheet1") # Or whatever your first tab is named
+    job_sheet = spreadsheet.worksheet("Job Postings")
     company_sheet = spreadsheet.worksheet("Company Directory")
     return job_sheet, company_sheet
 
 def fetch_jobs():
-    print("🔍 Scraping a wide net across Canada (LinkedIn, Indeed, Glassdoor)...")
+    print("Scraping a wide net across Canada (LinkedIn, Indeed, Glassdoor)...")
     try:
         search_query = '"Data Engineer" OR "Database Developer" OR "Data Analyst" OR "Power BI" OR "Backend Engineer"'
         jobs = scrape_jobs(
@@ -58,7 +58,7 @@ def fetch_jobs():
         )
         return jobs
     except Exception as e:
-        print(f"❌ Error during scraping: {e}")
+        print(f"Error during scraping: {e}")
         return pd.DataFrame()
 
 def analyze_job(title, company, description):
@@ -93,24 +93,24 @@ def analyze_job(title, company, description):
             return response.text.strip()
         except Exception as e:
             error_msg = str(e)
-        # If it's a 503 (Server Busy) or 500 (Server Error), we wait and retry
+        # If it's a 503 (Server Busy) or 500 (Server Error), wait and retry
             if '503' in error_msg or '500' in error_msg:
                 if attempt < max_retries - 1:
                     sleep_time = 5 * (2 ** attempt) # Waits 5s, then 10s...
-                    print(f"⚠️ AI Server busy (503). Retrying in {sleep_time} seconds... (Attempt {attempt + 1}/{max_retries})")
+                    print(f"AI Server busy (503). Retrying in {sleep_time} seconds... (Attempt {attempt + 1}/{max_retries})")
                     time.sleep(sleep_time)
-                    continue # Jumps back to the top of the loop to try again
+                    continue
             
             # If it's a 429 (Daily Quota empty) or we ran out of retries, fail gracefully
             return f"SCORE: 0%\nREASON: Analysis failed: {e}\nCATEGORY: Error\nMISSING_SKILLS: None\nCOVER LETTER: N/A"
 
 def run_pipeline():
-    print("☁️ Connecting to Google Sheets...")
+    print("Connecting to Google Sheets...")
     job_sheet, company_sheet = authenticate_gsheets()
     
     df_new = fetch_jobs()
     if df_new.empty:
-        print("📭 No jobs fetched.")
+        print("No jobs fetched.")
         return
 
     # 1. Cross-Portal Deduplication
@@ -129,10 +129,10 @@ def run_pipeline():
             df_new = df_new[~df_new['combo'].isin(known_combos)]
 
     if df_new.empty:
-        print("✅ No new jobs to analyze right now.")
+        print("No new jobs to analyze right now.")
         return
 
-    print("🏢 Checking Company Directory...")
+    print("Checking Company Directory...")
     company_records = company_sheet.get_all_records()
     known_companies = pd.DataFrame(company_records) if company_records else pd.DataFrame(columns=['Company Name', 'Status', 'Sector'])
     
@@ -148,13 +148,13 @@ def run_pipeline():
     # 3. Pre-Filter: Drop the Known Spam
     initial_count = len(df_new)
     df_new = df_new[~df_new['company_lower'].isin(spam_companies)]
-    print(f"🛑 Blocked {initial_count - len(df_new)} jobs from your known Spam list.")
+    print(f"Blocked {initial_count - len(df_new)} jobs from your known Spam list.")
 
     if df_new.empty:
-        print("✅ All new jobs were filtered out as spam.")
+        print("All new jobs were filtered out as spam.")
         return
 
-    print(f"🧠 Loading ML Model and Vectorizing {len(df_new)} jobs...")
+    print(f"Loading ML Model and Vectorizing {len(df_new)} jobs...")
     
     # 4. Machine Learning Semantic Pre-Filter
     ml_model = SentenceTransformer('all-MiniLM-L6-v2')
@@ -170,7 +170,7 @@ def run_pipeline():
     df_to_analyze = df_new.head(15).copy()
     df_to_analyze = df_to_analyze.fillna("")
     
-    print(f"⏳ Sending the Top {len(df_to_analyze)} most semantically relevant jobs to Gemini 2.5...")
+    print(f"Sending the Top {len(df_to_analyze)} most semantically relevant jobs to Gemini 2.5...")
     
     rows_to_insert = []
     new_companies_to_add = []
@@ -191,19 +191,18 @@ def run_pipeline():
         missing_skills = skills_match.group(1).strip() if skills_match else "None"
         sector = sector_match.group(1).strip() if sector_match else "Unknown"
         
-        # --- THE LEAN COMPANY DIRECTORY UPDATE (Now with Sector!) ---
+        # COMPANY DIRECTORY WITH THEIR SECTOR
         comp_lower = row['company_lower']
         if comp_lower not in all_known_names and comp_lower not in processed_new_companies:
             # We append the 3-column payload: [Name, Status, Sector]
             new_companies_to_add.append([row['company'], "Pending", sector])
             processed_new_companies.add(comp_lower)
-        # ------------------------------------------------------------
         
         status = "To Apply" if score > 0 else "Skipped"
         if score > 0:
-            print(f"🎯 AI Match ({score}%): {row['title']} at {row['company']}")
+            print(f"AI Match ({score}%): {row['title']} at {row['company']}")
         else:
-            print(f"⏭️ AI Skipped ({category}): {row['title']} at {row['company']}")
+            print(f"AI Skipped ({category}): {row['title']} at {row['company']}")
 
         date_fetched = datetime.now().strftime("%Y-%m-%d")
 
@@ -219,12 +218,12 @@ def run_pipeline():
     # 6. Push to Google Sheets
     if new_companies_to_add:
         company_sheet.append_rows(new_companies_to_add)
-        print(f"📝 Added {len(new_companies_to_add)} new companies to the directory with their Sectors.")
+        print(f"Added {len(new_companies_to_add)} new companies to the directory with their Sectors.")
 
     if rows_to_insert:
         rows_to_insert.sort(key=lambda x: x[9], reverse=True) 
         job_sheet.append_rows(rows_to_insert)
-        print(f"🎉 Success! Pushed {len(rows_to_insert)} jobs to the Job Tracker.")
+        print(f"Success! Pushed {len(rows_to_insert)} jobs to the Job Tracker.")
 
 if __name__ == "__main__":
     run_pipeline()
