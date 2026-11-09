@@ -13,6 +13,8 @@ from google.oauth2.service_account import Credentials
 # Load local environment variables
 load_dotenv()
 
+#adding comment to keep the job hunt pipeline active
+
 # --- CONFIGURATION ---
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 SHEET_NAME = "AI Job Tracker"
