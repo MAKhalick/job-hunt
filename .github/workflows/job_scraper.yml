@@ -2,9 +2,10 @@ name: Daily AI Job Hunter
 
 on:
   schedule:
-    # Runs every day at 3 PM UTC (which is 11:00 AM EDT)
-    - cron: '5 15 * * *'
-  workflow_dispatch: # Allows you to click a "Run Now" button manually
+    # 15:15 UTC is 10:15 AM EST (Ottawa winter time)
+    # Using minute 15 avoids top-of-the-hour queue bottlenecks on GitHub
+    - cron: '15 15 * * *'
+  workflow_dispatch: # Allows manual run at any time from GitHub UI
 
 # Grant permissions to save the CSV back to the repository
 permissions:
