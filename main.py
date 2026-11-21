@@ -235,8 +235,8 @@ def run_pipeline():
             clean_loc = clean_location(row.get('location', ''))
             
             new_row = [
-                "To Apply", 
-                str(row.get('site', '')), 
+                False, 
+                str(row.get('site', '')),
                 str(row.get('title', '')), 
                 str(row.get('company', '')), 
                 clean_loc, 
@@ -263,7 +263,7 @@ def run_pipeline():
     if rows_to_insert:
         # Sort by AI score descending
         rows_to_insert.sort(key=lambda x: x[9], reverse=True)
-        job_sheet.append_rows(rows_to_insert)
+        job_sheet.append_rows(rows_to_insert, value_input_option="USER_ENTERED")
         print(f"Success! Inserted {len(rows_to_insert)} jobs sorted by highest score into Google Sheets.")
     else:
         print("Run complete. No new matches met the threshold.")
