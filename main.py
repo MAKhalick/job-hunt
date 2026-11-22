@@ -263,8 +263,17 @@ def run_pipeline():
     if rows_to_insert:
         # Sort by AI score descending
         rows_to_insert.sort(key=lambda x: x[9], reverse=True)
-        job_sheet.append_rows(rows_to_insert, value_input_option="USER_ENTERED")
-        print(f"Success! Inserted {len(rows_to_insert)} jobs sorted by highest score into Google Sheets.")
+        next_row = len(job_sheet.col_values(3)) + 1
+        needed_rows = next_row + len(rows_to_insert) - 1
+        if needed_rows > job_sheet.row_count:
+            job_sheet.add_rows(needed_rows - job_sheet.row_count + 500)
+
+        job_sheet.update(
+            range_name=f"A{next_row}",
+            values=rows_to_insert,
+            value_input_option="USER_ENTERED",
+        )
+        print(f"Success! Inserted {len(rows_to_insert)} jobs starting at row {next_row} into Google Sheets.")
     else:
         print("Run complete. No new matches met the threshold.")
 
